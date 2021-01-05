@@ -29,6 +29,9 @@ Color base2DarkColor = const Color(0xFF212325);
 Color base3DarkColor = const Color(0xFF292B2D);
 Color base4DarkColor = const Color(0xFFF3F3F8);
 
+
+Color textColor = base2DarkColor;
+
 TextStyle buttonTextStyle = const TextStyle(
     color: const Color.fromRGBO(255, 255, 255, 0.8),
     fontSize: 14.0,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lms/shared/style/theme.dart';
+import 'package:flutter_lms/shared/widgets/button_widget.dart';
 import 'package:flutter_lms/shared/widgets/text_widget.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -45,31 +46,6 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Widget _submitButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: Text(
-        'Login',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
-    );
-  }
-
   Widget _divider() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -109,14 +85,13 @@ class _SignInScreenState extends State<SignInScreen> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-
+      color: primaryColor,
       child: Column(
         children: <Widget>[
           Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               height: 320,
               width: width,
-              color: primaryColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -127,6 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   TextWidget(label: 'Learn from anything and anywhere',color: Colors.white, ),
                 ],
               )),
+
           Container(
             width: width,
             height: height - 320,
@@ -139,10 +115,12 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
             child: Column(
               children: <Widget>[
-                SizedBox(height: height * .2),
+                SizedBox(height: 50),
                 _emailPasswordWidget(),
+                ButtonWidget(label: 'Sign In',bgColor: primaryColor, textColor: Colors.white,),
                 SizedBox(height: 20),
-                _submitButton(),
+
+                ButtonWidget(label: 'Create a new account',bgColor: secondaryColor, textColor: Colors.white,),
               ],
             ),
           )
@@ -151,23 +129,4 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     ));
   }
-}
-
-class MyClipper extends CustomClipper<Path>{
-  @override
-  Path getClip(Size size) {
-
-    var path = Path();
-    path.lineTo(0, size.height - 50);
-    var controllPoint = Offset(50, size.height);
-    var endPoint = Offset(size.width / 2, size.height);
-    path.quadraticBezierTo(controllPoint.dx, controllPoint.dy, endPoint.dx, endPoint.dy);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return true;
-  }
-
 }
