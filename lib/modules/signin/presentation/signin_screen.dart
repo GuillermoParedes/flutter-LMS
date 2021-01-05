@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_lms/shared/style/theme.dart';
 import 'package:flutter_lms/shared/widgets/text_widget.dart';
@@ -13,32 +12,6 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'TUTATOR LMS',
-              style: TextStyle(color: Color(0xFFffffff), fontSize: 24),
-            ),
-          ]),
-    );
-  }
-
-  Widget _description() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Learn from anything and anywhere',
-              style: TextStyle(color: Color(0xFFffffff), fontSize: 16),
-            ),
-          ]),
-    );
-  }
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
@@ -47,6 +20,7 @@ class _SignInScreenState extends State<SignInScreen> {
       ],
     );
   }
+
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -128,47 +102,72 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: backgroundColor,
-        body: Container(
-          height: height,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: height * .2),
-                      // _title(),
-                      TextWidget(label: 'TUTATOR LMS',),
-                      _description(),
-                      SizedBox(height: 50),
-                      _emailPasswordWidget(),
-                      SizedBox(height: 20),
-                      _submitButton(),
-                      Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        alignment: Alignment.centerRight,
-                        child: Text('Forgot Password ?',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w500)),
-                      ),
-                      _divider(),
+      body: Container(
 
-                      SizedBox(height: height * .055),
+      child: Column(
+        children: <Widget>[
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              height: 320,
+              width: width,
+              color: primaryColor,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: height * .2),
+                  TextWidget(label: 'TUTATOR LMS',color: Colors.white, size: 24,),
+                  SizedBox(height: 20),
+                  TextWidget(label: 'Learn from anything and anywhere',color: Colors.white, ),
+                ],
+              )),
+          Container(
+            width: width,
+            height: height - 320,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50)),
+              color: base2LightColor,
+            ),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: height * .2),
+                _emailPasswordWidget(),
+                SizedBox(height: 20),
+                _submitButton(),
+              ],
+            ),
+          )
 
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ));
+        ],
+      ),
+    ));
   }
+}
+
+class MyClipper extends CustomClipper<Path>{
+  @override
+  Path getClip(Size size) {
+
+    var path = Path();
+    path.lineTo(0, size.height - 50);
+    var controllPoint = Offset(50, size.height);
+    var endPoint = Offset(size.width / 2, size.height);
+    path.quadraticBezierTo(controllPoint.dx, controllPoint.dy, endPoint.dx, endPoint.dy);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
+
 }
